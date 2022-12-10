@@ -1,0 +1,135 @@
+{% extends 'sec_nav.html' %} 
+{% block content %}
+{% load static %}
+<style>
+    body{
+        background-color: #e2e5e8;
+        height: 100%;
+    }
+   
+    .img-fluid{
+        width: 100%;
+    }
+    .res{
+        font-family: 'Proxima Nova', 'Proxima Nova Fallback', sans-serif;
+        color: #487A7A;
+        font-size:x-large;
+    }
+    .main{
+        width: 50%;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 25px 0 rgba(0, 0, 0, 0.19);
+    }
+    .main:hover{
+        transform: scale(1.03);
+        box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
+    }
+    .head{
+        border-radius: 10px 10px 0 0;
+        background-color: #6ba7a7;
+        color: white;
+    }
+    .up, .load,.fa-cloud-upload{
+        font-size: xx-large;
+        color:white;
+    }
+    .fa-cloud-upload{
+    transform: translateY(20px);
+    opacity: 0;
+    animation: fadeup .5s .5s ease both;
+    }
+    .up{
+        transform: translateX(-20px);
+        opacity: 0;
+        display: inline-block;
+        animation: faderight .5s 1s ease both;
+    }
+    .load{
+        transform: translateX(-20px);
+        opacity: 0;
+        display: inline-block;
+        animation: faderight .5s 1s ease both;
+    }
+    @keyframes fadeup {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    }
+    @keyframes faderight {
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    }
+    @keyframes fade {
+    to {
+        opacity: 1;
+    }
+    }
+    #formFile{
+        display: none;
+    }
+    .btn{
+        cursor: pointer;
+    }
+
+    
+    
+
+
+
+    
+
+</style>
+<script src="https://kit.fontawesome.com/c89f2275fd.js" crossorigin="anonymous"></script>
+<div class="container center main px-0 my-5">
+    <div class="head py-5 my-5">
+        <header>
+            <h1 class="res">
+                <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                <span class="up bold">up</span>
+                <span class="load">load X-Ray</span>
+            </h1>
+        </header>
+    </div>
+    <div class="body">
+        <div class="">
+            <form method="POST" action="machine" enctype="multipart/form-data">
+                {% csrf_token %}
+                    <div class="card m-5">
+                        {% if pred %}
+                            <h1 id="label" class="center res m-5">This may be <span><b>{{pred}}</b></span></h1>
+                            <img  src="{{img}}" id="show" class="img-fluid" />
+                        {% else %}
+                            <h1 id="hid" class="m-5" >Image will display here</h1>
+                        {% endif %}
+                        <img id="frame" src="" class="img-fluid" />
+                    </div>
+                <div class="">
+                    <label class="btn mb-5"> upload
+                        <input class="form-control " type="file" name="image" id="formFile" multiple accept="image/*"  onchange="preview()" >
+                    </label>
+                    <input type="submit" class="btn mb-5" id="pred" value="Predict" style="display:none;">
+                </div>
+                <input type="text" name="name" id="name" value="" style="display:none;">
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function preview() {
+        if (document.getElementById("show")) {
+            document.getElementById("show").style.display="none";
+            document.getElementById("label").style.display="none";
+        }
+        if ( document.getElementById("hid")){
+        document.getElementById("hid").style.display="none";
+        }
+        document.getElementById("pred").style.display="inline";
+        document.getElementById("frame").src=URL.createObjectURL(event.target.files[0]);
+        document.getElementById("name").value=event.target.files[0].name
+    }
+</script>
+{% endblock content %}
