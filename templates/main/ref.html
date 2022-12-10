@@ -1,0 +1,189 @@
+{% extends 'nav.html' %}
+{% block content %}
+{% load static %}
+<style>
+    iframe {
+        text-align: center;
+        width: 350px;
+    }
+
+    body {
+        background-color: #e2e5e8;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .container {
+        position: absolute;
+        width: 2900px;
+        top: 270px;
+        left: 170px;
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+
+    footer#footer {
+    margin-top: 610px;
+}
+    .card {
+        display: flex;
+        flex-wrap: nowrap;
+
+        height: 400px;
+        width: 900px;
+        background-color: #487A7A;
+        border-radius: 10px;
+        transition: 0.4s ease-out;
+        position: relative;
+        right: 60px;
+    }
+
+    .card:not(:first-child) {
+        margin-left: -90px;
+    }
+
+    .card:hover {
+        transform: translateY(-50px);
+        transition: 0.9s ease-out;
+        box-shadow: -1rem 0 1rem #555555;
+
+    }
+
+    .card:hover~.card {
+        position: relative;
+        left: 50px;
+        transition: 0.4s ease-out;
+    }
+
+    .title {
+        color: white;
+        font-weight: 300;
+        position: absolute;
+        left: 20px;
+        top: 15px;
+        margin-top: 20px;
+    }
+
+    .bar {
+        position: absolute;
+        top: 100px;
+        left: 20px;
+        height: 10px;
+        width: 150px;
+    }
+
+    .emptybar {
+        background-color: #2e3033;
+        width: 100%;
+        height: 100%;
+    }
+
+    .filledbar {
+        position: absolute;
+        top: 0px;
+        z-index: 4;
+        width: 0px;
+        height: 100%;
+        background: rgb(0, 154, 217);
+        background: linear-gradient(90deg, rgba(0, 154, 217, 1) 0%, rgba(217, 147, 0, 1) 65%, rgba(255, 186, 0, 1) 100%) #889C29;
+        transition: 0.6s ease-out;
+    }
+
+    .card:hover .filledbar {
+        width: 120px;
+        transition: 0.4s ease-out;
+    }
+
+    .button {
+        position: relative;
+        right: 20px;
+    }
+
+    .circle {
+        position: absolute;
+        top: 150px;
+        left: calc(50% - 60px);
+    }
+
+   
+
+    .bb {
+        position: relative;
+        left: 240px;
+         
+    }
+    .heading{
+       margin: 30px;
+	   margin-left: 600px;
+       font-size: xx-large;
+   }
+
+   
+</style>
+
+ 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300i,400" rel="stylesheet">
+ 
+
+    <div><h1 class="heading logoname" style="color:  #2c2c2c;">Refre<span>nses </span> </h1></div>
+
+<div class="container">
+    <div class="card">
+        <h3 class="title">Wikipedia</h3>
+        <div class="bar">
+            <div class="emptybar"></div>
+            <div class="filledbar"></div>
+            <br> <br>
+            <div> <iframe id="encoder_iframe" height=100% width="100%"
+                    src="https://en.wikipedia.org/wiki/Category:Lung_disorders">
+                </iframe></div>
+            <br>
+            <a href="https://en.wikipedia.org/wiki/Category:Lung_disorders" target="_blank">
+                <button type="button  " class="btn btn-secondary float-right ml-6 bb" hre>Browse </button>
+            </a>
+
+        </div>
+
+    </div>
+    <div class="card">
+        <h3 class="title">Healthline</h3>
+        <div class="bar">
+            <div class="emptybar"></div>
+            <div class="filledbar"></div>
+            <br> <br>
+            <div> <iframe id="encoder_iframe" height=100% width="100%" src="https://www.healthline.com/health/pneumonia">
+                </iframe></div>
+            <br>
+            <a href="https://www.healthline.com/health/pneumonia" target="_blank">
+                <button type="button  " class="btn btn-secondary float-right ml-6 bb" hre>Browse </button>
+            </a>
+
+
+        </div>
+
+    </div>
+    <div class="card">
+        <h3 class="title">WebMd
+        </h3>
+        <div class="bar">
+            <div class="emptybar"></div>
+            <div class="filledbar"></div>
+            <br> <br>
+            <div> <iframe id="encoder_iframe" height=100% width="100%"
+                    src="https://www.webmd.com/lung/copd/10-faqs-about-living-with-copd">
+                </iframe></div> <br>
+            <a href="https://www.webmd.com/lung/copd/10-faqs-about-living-with-copd" target="_blank">
+                <button type="button  " class="btn btn-secondary float-right ml-6 bb">Browse </button>
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+{% endblock content %}

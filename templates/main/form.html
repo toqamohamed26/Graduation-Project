@@ -1,0 +1,479 @@
+{% extends 'sec_nav.html' %}
+{% block content %}
+{% load static %}
+
+
+<style>
+    .sub1,
+    .sub2 {
+        display: none;
+        font-weight: normal;
+
+    }
+
+    :checked~.sub1,
+    :checked~.sub2 {
+        display: block;
+        margin-left: 40px;
+
+    }
+
+    body {
+        background-color: #e2e5e8;
+
+
+    }
+
+    .main {
+        width: 50%;
+        background-color: white;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+    .main:hover {
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 25px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .border {
+        border-radius: 10px;
+        border: 1px solid #e2e5e8;
+        padding: 20px;
+    }
+
+    .kj {
+        font-family: 'Proxima Nova', 'Proxima Nova Fallback', sans-serif;
+        font-weight: bold;
+        margin: 0px;
+        display: inline;
+    }
+
+    input,
+    label {
+        display: inline;
+    }
+
+    .all {
+        font-family: 'Proxima Nova', 'Proxima Nova Fallback', sans-serif;
+        font-weight: bold;
+        color: #487A7A;
+        padding-right: 20px;
+        margin: 10px;
+    }
+
+    .title {
+        background-color: #487A7A;
+        color: white;
+        padding: 15px;
+        margin: 15px;
+        border-radius: 5px
+    }
+
+    .fa-angle-down {
+        float: right;
+    }
+
+    .collapse {
+        padding-left: 150px;
+    }
+
+    td {
+        padding-left: 20px;
+    }
+
+    #quantity,
+    .in {
+        border-radius: 5px;
+        border: 1px solid #e2e5e8;
+        padding: 3px;
+        padding-left: 10px;
+    }
+</style>
+
+
+<br>
+<form method="POST" action="/result" id="sectionForm">
+    {% csrf_token %}
+    <div style="text-align:center;">
+        <h1 style="color:#487A7A; font-size:x-large; font-family:'Proxima Nova','Proxima Nova Fallback',sans-serif;">
+            <b>Enter Patient's Data To See Diffrential Diagnoses</b></h1>
+    </div>
+    <div class="main">
+        <div class="border">
+            <div class="con">
+                <div class="title" data-bs-toggle="collapse" data-bs-target="#per">
+                    <h1 class="kj"> <span class="sp"> Personal Info : </span> </h1>
+                    <i class="fas fa-angle-down"></i>
+                </div>
+                <div class="all collapse " style="padding-right:200px;" id="per">
+                    <div>
+                        <label for="Age" class="some">Age</label><br>
+                        <input type="number" name="Age" id="Age" min="1" max="100" class="in" required />
+                    </div>
+                    <label><b>Gender:</b></label>
+                    <div class="mx-2">
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="gender" value="Male" id="Male" />
+                                    <label for="Male" class="some">Male</label>
+                                </td>
+                                <td>
+                                    <input type="radio" name="gender" value="Female" id="Female" />
+                                    <label for="Female" class="some">Female</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="title" data-bs-toggle="collapse" data-bs-target="#com">
+                <h1 class=" kj"> <span class="sp">Complications : </span> </h1>
+                <i class="fas fa-angle-down"></i>
+            </div>
+            <div class="collapse" id="com">
+                <div class="all">
+                    <input type="checkbox" name="cough" value="1" id="Cough" onclick="MyFunction()" />
+                    <label for="Cough" class="some">Cough</label>
+                    <div class="sub1">
+                        <div>
+                            <input type="checkbox" name="Hemo" value="1" id="Hemoptysis" />
+                            <label for="Hemoptysis" class="some">Hemoptysis </label>
+                        </div>
+                    </div>
+                    <div class="sub1">
+                        <div style="display:inline;">
+                            <input type="radio" name="coughh" value="0" id="Dry" />
+                            <label for="Dry Cough" class="some">Dry Cough</label>
+                        </div>
+                        <input type="radio" name="coughh" value="1" id="Productive Cough"
+                            style="margin-left:20px;" />
+                        <label for="Productive Cough" class="some">Productive Cough</label>
+                        <div class="sub2">
+                            <div>
+                                <input type="checkbox" name="type" value="0" id="green" />
+                                <label for="other" class="some">Green Sputum </label>
+                                <input type="checkbox" name="type" value="1" id="yellow" style="margin-left:20px;"/>
+                                <label for="other" class="some">Yellow Sputum </label>
+                                <input type="checkbox" name="type" value="2" id="pus" style="margin-left:20px;"/>
+                                <label for="pus" class="some">Purulent Sputum </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="all">
+                    <input type="checkbox" name="Dyspnea" value="1" id="Dyspnea" onclick="Test()" />
+                    <label for="Dyspnea" class="some"> Dyspnea </label>
+                    <div class="sub1">
+                        <div>
+                            <input type="radio" name="Dys" value="0" id="exercise" />
+                            <label for="exercise" class="some">exercise</label>
+                            <input type="radio" name="Dys" value="1" id="rest" style="margin-left:20px;" />
+                            <label for="rest" class="some">rest</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="all">
+                    <input type="checkbox" name="Chest pain" value="Pain" id="Chest pain" onclick="Pain()" />
+                    <label for="Chest pain" class="some"> Chest pain </label>
+                    <div class="sub1">
+                        <div>
+                            <input type="radio" name="Pain" value="1" id="general" />
+                            <label for="general" class="some">Sharp </label>
+                            <input type="radio" name="Pain" value="0" id="tight" style="margin-left:20px;" />
+                            <label for="tight" class="some">Tight chest</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="all">
+                    <input type="checkbox" name="Fever" value="1" id="Fever"/>
+                    <label for="Fever" class="some"> Fever </label>
+                    <div class="sub1">
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="TH" value="0" id="Sweating" />
+                                    <label for="Night Sweating" class="some">Night Sweating</label>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="TH" value="1" id="malaise" />
+                                    <label for="malaise" class="some">Malaise</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="TH" value="2" id="Chills" />
+                                    <label for="Chills" class="some">Chills</label>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="TH" value="3" id="Anorexa" />
+                                    <label for="Anorexa" class="some">Anorexa</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="all">
+                    <div>
+                        <input type="checkbox" name="Wheezing" value="1" id="Wheezing" />
+                        <label for="Wheezing" class="some">Wheezing </label>
+                    </div>
+                </div>
+            </div>
+            <div class="title" data-bs-toggle="collapse" data-bs-target="#si">
+                <h1 class="kj"> <span class="sp"> Signs : </span> </h1>
+                <i class="fas fa-angle-down"></i>
+            </div>
+            <div class="all collapse " style="padding-right:200px;" id="si">
+                <div class="all">
+                    <div>
+                        <input type="checkbox" name="loss" value="1" id="weight" />
+                        <label for="weight" class="some">Lossing weight </label>
+                    </div>
+                </div>
+                <div class="all">
+                    <div>
+                        <input type="checkbox" name="blue" value="1" id="skin" />
+                        <label for="skin" class="some">Blue Skin </label>
+                    </div>
+                </div>
+                <div class="all">
+                    <div>
+                        <input type="checkbox" name="swell" value="1" id="swell" />
+                        <label for="swell" class="some">Swelling </label>
+                    </div>
+                </div>
+                <div class="all">
+                    <div>
+                        <input type="checkbox" name="clubbing" value="1" id="clubbing" />
+                        <label for="clubbing" class="some">Clubbed Fingers</label>
+                    </div>
+                </div>
+                <div class="all">
+                    <div>
+                        <input type="checkbox" name="joint" value="1" id="joint" />
+                        <label for="joint" class="some">Joint Pain </label>
+                    </div>
+                </div>
+            </div>
+            <div class="title" data-bs-toggle="collapse" data-bs-target="#his">
+                <h1 class=" kj"> <span class="sp">Medical History : </span> </h1>
+                <i class="fas fa-angle-down"></i>
+            </div>
+            <div class="collapse" id="his">
+                <div class="all">
+                    <input type="checkbox" name="level0" value="Smoking" id="Smoking" onclick="Smoker()" />
+                    <label for="Smoking" class="some">Smoking</label>
+                    <div class="sub2">
+                        <div>
+                            <input type="radio" name="smoke" value="1" id="HeavySmoker" />
+                            <label for="Heavy Smoker" class="some">Heavy Smoker</label>
+                            <input type="radio" name="smoke" value="Light" id="Side" style="margin-left:20px;" />
+                            <label for="Side" class="some">Light Smoker</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="all">
+                    <input type="checkbox" name="work" value="1" id="Work Type"/>
+                    <label for="Work Type" class="some">Work Type</label>
+                    <div class="sub2">
+                        <div>
+                            <input type="radio" name="type" value="Birds" id="KeepsBirds" />
+                            <label for="Keeps Birds" class="some">Keeps Birds</label>
+                            <input type="radio" name="type" value="Worker" id="Worker" style="margin-left:20px;" />
+                            <label for="Worker" class="some">Worker (coal,dust,slicosis,cotton,..etc)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="all">
+                    <input type="checkbox" name="level0" value="Family history" id="Family History" onclick="valthisform" />
+                    <label for="Family history" class="some">Family history</label>
+                    <form name = "FC">
+
+                    <div class="sub2">
+                        <div>
+                            <input type="checkbox" name="history" value="BA" id="BA" />
+                            <label for="BA" class="some">Bronchial Asthma(BA) </label>
+                            <div>
+                                <input type="checkbox" name="history" value="TB" id="TB" />
+                                <label for="TB" class="some">Pulmonary Tuberculosis(TB) </label>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="history" value="IPF" id="IPF" />
+                            <label for="IPF" class="some">Idiopathic Pulmonary Fibrosis(IPF)</label>
+                        </div>
+                    </div></form>
+                </div>
+                <div class="all">
+                    <input type="checkbox" name="level0" value="Past history" id="Past history"  />
+                    <label for="Past history" class="some"> Past history</label>
+                    <div class="sub2">
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="history2" value="BA" id=" BA" />
+                                    <label for="BA" class="some">Bronchial Asthma(BA) </label>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="history2" value="TB" id="TB" />
+                                    <label for="TB" class="some">Pulmonary Tuberculosis(TB) </label>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="history2" value="Pneumonia" id="Pneumonia" />
+                                    <label for="Pneumonia" class="some">Pneumonia </label>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="history2" value="others.." id="others.." />
+                                    <label for="others.." class="some">Others.. </label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="all">
+                    <input type="checkbox" name="level0" value="Duration" id="Duration" onclick="Weeks()" />
+                    <label for="Duration" class="some">Duration</label>
+                    <div class="sub2">
+                        <div>
+                            <input type="radio" name="level96" value="0" id="Weeks3" />
+                            <label for="3weeks" class="some">Less than 3 weeks </label>
+                            <div>
+                                <input type="radio" name="level96" value="1" id="Between 3-6 weeks" />
+                                <label for="Between 3-6 weeks" class="some">Between 3-6 weeks</label>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="radio" name="level96" value="2" id="More" />
+                            <label for="More than 6 weeks" class="some">More than 6 weeks</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="all">
+                    <input type="checkbox" name="level0" value="Onset" id="Onset" onclick="Onset()" />
+                    <label for="Onset" class="some">Onset</label>
+                    <div class="sub2">
+                        <div>
+                            <input type="radio" name="level97" value="Suddenly " id="Suddenly" />
+                            <label for="Suddenly" class="some">Suddenly </label>
+                            <input type="radio" name="level97" value="Gradual" id="Gradual" style="margin-left:20px;" />
+                            <label for="Gradual" class="some">Gradual</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="all">
+                    <input type="checkbox" name="Triggers" value="1" id="Triggers" />
+                    <label for="Triggers" class="some">Triggers</label>
+                    <div class="sub2">
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="Trigger" value="Allergens" id="Allergens" />
+                                    <label for="Allergens" class="some">Allergens </label>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="Trigger" value="Pollution" id="Pollution" />
+                                    <label for="TB" class="some">Pollution</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="Trigger" value="Infection" id="Infection" />
+                                    <label for="Infection" class="some">Infection </label>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="Trigger" value="others.." id="others.." />
+                                    <label for="others.." class="some">others.. </label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="all">
+                    <div>
+                        <input type="checkbox" name="Trauma" value="1" id="Trauma" />
+                        <label for="Trauma" class="some"> Trauma</label>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <input type="submit" name="submit" id="submit" value="Submit" class="btn" style="margin-left:75%;" >
+        </div>
+    </div>
+    </div>
+</form>
+<script>
+    function MyFunction() {
+        document.getElementById("Dry").setAttribute('required', '');
+    }
+    function Fun() {
+        document.getElementById("forward").setAttribute('required', '');
+    }
+    function Test() {
+        document.getElementById("exercise").setAttribute('required', '');
+    }
+    function Pain() {
+        document.getElementById("general").setAttribute('required', '');
+    }
+    function Smoker() {
+        document.getElementById("HeavySmoker").setAttribute('required', '');
+    }
+    function Weeks() {
+        document.getElementById("Weeks3").setAttribute('required', '');
+    }
+    function Onset() {
+        document.getElementById("Suddenly").setAttribute('required', '');
+    }
+
+
+    (function () {
+        const form = document.querySelector('#sectionForm');
+        const checkboxes = form.querySelectorAll('input[type=checkbox]');
+        const checkboxLength = checkboxes.length;
+        const firstCheckbox = checkboxLength > 0 ? checkboxes[0] : null;
+
+        function init() {
+            if (firstCheckbox) {
+                for (let i = 0; i < checkboxLength; i++) {
+                    checkboxes[i].addEventListener('change', checkValidity);
+                }
+                checkValidity();
+            }
+        }
+
+        function isChecked() {
+            for (let i = 0; i < checkboxLength; i++) {
+                if (checkboxes[i].checked) return true;
+            }
+            return false;
+        }
+
+        function checkValidity() {
+            const errorMessage = !isChecked() ? 'At least one checkbox must be selected.' : '';
+            firstCheckbox.setCustomValidity(errorMessage);
+        }
+
+        init();
+    })();
+
+    function valthisform(){
+ var chkd = document.FC.BA.checked || document.FC.TB.checked||document.FC.IPF.checked 
+
+ if (chkd == true){
+
+ } else {
+    alert ("please check a checkbox")
+ }
+
+}
+</script>
+
+<br> <br> <br>
+{% endblock content %}

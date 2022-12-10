@@ -1,0 +1,598 @@
+{% extends 'nav.html' %}
+{% block content %}
+{% load static %}
+
+<head>
+  <script src="https://kit.fontawesome.com/c89f2275fd.js" crossorigin="anonymous"></script>
+  <style>
+    .bgded {
+      background-image:url("{% static 'images/chest-overlay (1).png' %}");
+      background-repeat: no-repeat;
+      background-size: 100% 1100px;
+      
+
+    }
+
+    .vt {
+      background-color: white;
+    }
+
+    .card {
+      border-radius: 20px;
+      border: 1px solid rgb(124, 124, 124);
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+      
+    }
+
+    .card:hover {
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 25px 0 rgba(0, 0, 0, 0.19);
+    }
+    
+
+    .c-details span {
+      font-weight: 300;
+      font-size: 13px
+    }
+
+    .icon {
+      width: 50px;
+      height: 50px;
+      background-color: #eee;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #889C29;
+    }
+
+    .badge span {
+      background-color: #8f9c4d;
+      width: 60px;
+      height: 25px;
+      padding-bottom: 3px;
+      border-radius: 5px;
+      display: flex;
+      color: #fffbec;
+      justify-content: center;
+      align-items: center
+    }
+
+    .progress {
+      height: 10px;
+      border-radius: 10px
+    }
+
+    .progress div {
+      background-color: rgb(28, 228, 255)
+    }
+
+    .text1 {
+      font-size: 14px;
+      font-weight: 600
+    }
+
+    .text2 {
+      color: #a5aec0
+    }
+
+
+    h6 {
+      color: #487A7A;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: larger;
+    }
+
+    .pp2 {
+      position: relative;
+      bottom: 80px;
+      z-index: 1;
+
+    }
+
+
+    .p {
+      margin: 0px 90px 90px 90px;
+      border: 3px outset rgb(40, 41, 41);
+      border-radius: 20px;
+      background-color: rgb(185, 185, 185);
+      text-align: left;
+      display: block;
+      padding: 20px;
+    }
+
+    
+    .heading {
+      margin: 0px;
+      margin-left: 0%;
+      font-family: 'Proxima Nova', 'Proxima Nova Fallback', sans-serif;
+      text-align: center;
+      margin-right: 30%;
+      font-size: 1em;
+      
+      
+    }
+  
+
+    .tilesWrap {
+      padding: 0;
+      margin: 20px auto;
+      margin-top: 150px;
+      list-style: none;
+      text-align: center;
+      position: relative;
+      bottom: 110px;
+      z-index: 1;
+    }
+
+    .tilesWrap li {
+      display: inline-block;
+      width: 20%;
+      min-width: 200px;
+      max-width: 230px;
+      padding: 80px 20px 40px;
+      position: relative;
+      vertical-align: top;
+      margin: 10px;
+      font-family: 'Proxima Nova', 'Proxima Nova Fallback', sans-serif;
+      min-height: 25vh;
+      background: #ffffff;
+      border: 1px solid #050505;
+      text-align: left;
+    }
+
+    .spann {
+      color: rgb(68, 68, 68);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 30px;
+    }
+
+    .tilesWrap li h2 {
+      font-size: 114px;
+      margin: 0;
+      color: #000;
+      position: absolute;
+      opacity: 0.2;
+      top: 50px;
+      right: 10px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .tilesWrap li h3 {
+      font-size: 20px;
+      color: #494949;
+      margin-bottom: 5px;
+    }
+
+    .tilesWrap li p {
+      font-size: 16px;
+      line-height: 18px;
+      color: #3a3a3a;
+      margin-top: 5px;
+    }
+
+    .tilesWrap li button {
+      background: transparent;
+      border: 1px solid #b7b7b7;
+      padding: 10px 20px;
+      color: #b7b7b7;
+      border-radius: 3px;
+      position: relative;
+      transition: all 0.3s ease-in-out;
+      transform: translateY(-40px);
+      opacity: 0;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .tilesWrap li button:before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 120%;
+      background: #889C29;
+      top: 0;
+      opacity: 0;
+      left: -140px;
+      border-radius: 0 20px 20px 0;
+      z-index: -1;
+      transition: all 0.3s ease-in-out;
+
+    }
+
+    .tilesWrap li:hover button {
+      transform: translateY(5px);
+      opacity: 1;
+    }
+
+    .tilesWrap li button:hover {
+      color: #262a2b;
+    }
+
+    .tilesWrap li button:hover:before {
+      left: 0;
+      opacity: 1;
+    }
+
+    .tilesWrap li:hover h2 {
+      top: 0px;
+      opacity: 0.7;
+    }
+
+    .tilesWrap li:before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      z-index: -1;
+      background: #eee;
+      transform: skew(2deg, 2deg);
+    }
+
+    .tilesWrap li:after {
+      content: '';
+      position: absolute;
+      width: 40%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .tilesWrap li:nth-child(1):before {
+      background: #C9FFBF;
+      background: -webkit-linear-gradient(to right, #889C29, #fed85d);
+      background: linear-gradient(to right, #487A7A, #889C29);
+    }
+
+    .tilesWrap li:nth-child(2):before {
+      background: #f2709c;
+      background: -webkit-linear-gradient(to right, #889C29, #fed85d);
+      background: linear-gradient(to right, #487A7A, #889C29);
+    }
+
+    .tilesWrap li:nth-child(3):before {
+      background: #c21500;
+      background: -webkit-linear-gradient(to right, #889C29, #fed85d);
+      background: linear-gradient(to right, #487A7A, #889C29);
+    }
+
+    .tilesWrap li:nth-child(4):before {
+      background: #FC354C;
+      background: -webkit-linear-gradient(to right, #889C29, #fed85d);
+      background: linear-gradient(to right, #487A7A, #889C29);
+    }
+
+    .po {
+      background-color: #617575;
+      height: 300px;
+      margin-top: 1000px;
+
+    }
+
+    .io {
+      margin-left: 28%;
+    }
+    .se{
+      float: right;
+      margin-right: 20%;
+    }
+    .im{
+      box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 25px 0 rgba(0, 0, 0, 0.19);
+    }
+    .xx{
+      color:#3a3a3a;
+      font-family: 'Proxima Nova', 'Proxima Nova Fallback', sans-serif;
+      font-size: 2em;
+      margin-top: 100px;
+      line-height: 35px;
+    }
+    .pre{
+      float:right;
+      width: 600px;
+      height:800px ;
+      margin-top: 0;
+    }
+    .ptx{
+      color:#3a3a3a;
+      font-family: 'Proxima Nova', 'Proxima Nova Fallback', sans-serif;
+      font-size: 2.5em;
+      line-height: 55px;
+      margin-left: 200px;
+      padding-top: 150px;
+    }
+    .wh{
+      height:600px;
+    }
+    .b{
+      margin-left: 150px;
+    }
+  </style>
+</head>
+
+<body class=" bgded vt">
+  <div>
+    <div id="pageintro" class="hoc clear m-0 ">
+      
+        <h3 class="heading" style="font-size:40px;" >Predict Diseases with <br><b  >Symptoms and History</b><br>
+          See Diffrential Diagnoses for <br><b >Chest Diseases</b>
+        </h3> 
+        
+        
+
+            <!--<li><a class="btn" href="{% url 'form' %}">Start Now</a></li>
+            <li><a class="btn inverse " href="{% url 'machine' %}"> Put Your X-Ray </a></li> <br> <br>-->
+            <a class="btn io mt-0" href="{% url 'form' %}"> Start Now </a>
+
+          
+
+      <div id="disss"></div>
+    </div>
+  </div>
+
+  <div class="container mt-5 mb-5 pp2 " >
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card p-3 mb-2">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-row align-items-center">
+              <div class="icon"> <i class="fa-solid fa-x-ray"></i> </div>
+              <div class="ms-2 c-details">
+                <h6 class="mb-0">COPD</h6> <span class="spann">Tap to reed more about <br> COPD..</span>
+              </div>
+            </div>
+            <div class="badge"> <a href="{% url 'diseases:DiseaseDetails' 5 %}"><span>Read </span> </a> </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-3 mb-2">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-row align-items-center">
+              <div class="icon"> <i class="fa-solid fa-x-ray"></i> </div>
+              <div class="ms-2 c-details">
+                <h6 class="mb-0"> Bronchial asthma</h6> <span>
+                  <h6 class="mb-0"> </h6> <span class="spann">Tap to reed more about<br> Bronchial Asthma ..</span>
+                </span>
+              </div>
+            </div>
+            <div class="badge"> <a href="{% url 'diseases:DiseaseDetails' 6 %}"><span>Read </span> </a> </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-3 mb-2">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-row align-items-center">
+              <div class="icon"> <i class="fa-solid fa-x-ray"></i> </div>
+              <div class="ms-2 c-details">
+                <h6 class="mb-0"> IPF</h6> <span class="spann">Tap to reed more about <br> IPF..</span>
+              </div>
+            </div>
+            <div class="badge"> <a href="{% url 'diseases:DiseaseDetails' 10 %}"><span>Read </span> </a> </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-3 mb-2">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-row align-items-center">
+              <div class="icon"> <i class="fa-solid fa-x-ray"></i> </div>
+              <div class="ms-2 c-details">
+                <h6 class="mb-0"> Pneumonia</h6> <span class="spann">Tap to reed more about<br> Pneumonia..</span>
+              </div>
+            </div>
+            <div class="badge"> <a href="{% url 'diseases:DiseaseDetails' 11 %}"><span>Read </span> </a> </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-3 mb-2">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-row align-items-center">
+              <div class="icon"> <i class="fa-solid fa-x-ray"></i> </div>
+              <div class="ms-2 c-details">
+                <h6 class="mb-0">TB</h6> <span class="spann">Tap to reed more about <br>TB..</span>
+              </div>
+            </div>
+            <div class="badge"> <a href="{% url 'diseases:DiseaseDetails' 13 %}"><span>Read </span> </a> </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card p-3 mb-2">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-row align-items-center">
+              <div class="icon"> <i class="fa-solid fa-x-ray"></i> </div>
+              <div class="ms-2 c-details">
+                <h6 class="mb-0">Sarcoidosis</h6> <span class="spann">Tap to reed more about <br> Sarcoidosis..</span>
+              </div>
+            </div>
+            <div class="badge"> <a href="{% url 'diseases:DiseaseDetails' 12 %}"><span>Read </span> </a> </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="col-md-4">
+        <div class="card p-3 mb-2">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-row align-items-center">
+              <div class="icon"> <i class="fa-solid fa-x-ray"></i> </div>
+              <div class="ms-2 c-details">
+                <h6 class="mb-0">Pleurisy</h6> <span class="spann">Tap to reed more about <br> Pleurisy..</span>
+              </div>
+            </div>
+            <div class="badge"> <a href="{% url 'diseases:DiseaseDetails' 1 %}"><span>Read </span> </a> </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-3 mb-2">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-row align-items-center">
+              <div class="icon"> <i class="fa-solid fa-x-ray"></i> </div>
+              <div class="ms-2 c-details">
+                <h6 class="mb-0">pleural Effusion</h6> <span>
+                  <h6 class="mb-0"> </h6> <span class="spann">Tap to reed more about<br> pleural effusion..</span>
+                </span>
+              </div>
+            </div>
+            <div class="badge"> <a href="{% url 'diseases:DiseaseDetails' 2 %}"><span>Read </span> </a> </div>
+          </div>
+
+
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-3 mb-2">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-row align-items-center">
+              <div class="icon"> <i class="fa-solid fa-x-ray"></i> </div>
+              <div class="ms-2 c-details">
+                <h6 class="mb-0"> Empyema</h6> <span class="spann">Tap to reed more about <br> Empyema..</span>
+              </div>
+            </div>
+            <div class="badge"> <a href="{% url 'diseases:DiseaseDetails' 4 %}"><span>Read </span> </a> </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-3 mb-2">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-row align-items-center">
+              <div class="icon"> <i class="fa-solid fa-x-ray"></i> </div>
+              <div class="ms-2 c-details">
+                <h6 class="mb-0">Bronchiectasis</h6> <span class="spann">Tap to reed more about<br> Bronchiectasis..</span>
+              </div>
+            </div>
+            <div class="badge"> <a href="{% url 'diseases:DiseaseDetails' 7 %}"><span>Read </span> </a> </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-3 mb-2">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-row align-items-center">
+              <div class="icon"> <i class="fa-solid fa-x-ray"></i> </div>
+              <div class="ms-2 c-details">
+                <h6 class="mb-0">Cystic fibrosis</h6> <span>
+                  <h6 class="mb-0"> </h6> <span class="spann">Tap to reed more about<br> Cystic fibrosis ..</span>
+                </span>
+              </div>
+            </div>
+            <div class="badge"> <a href="{% url 'diseases:DiseaseDetails' 8 %}"><span>Read </span> </a> </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-4"  id="About">
+        <div class="card p-3 mb-2">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-row align-items-center">
+              <div class="icon"> <i class="fa-solid fa-x-ray"></i> </div>
+              <div class="ms-2 c-details">
+                <h6 class="mb-0"> Lung Abscess</h6> <span class="spann">Tap to reed more about<br> Lung Abscess..</span>
+              </div>
+            </div>
+            <div class="badge"> <a href="{% url 'diseases:DiseaseDetails' 9 %}"><span>Read </span> </a> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="">
+    <div class="se mt-5 center">
+      <p class="xx">
+        
+          X-rays is a very effective way<br>
+          of looking at the bone
+          <br> <b>Upload Chest X-ray</b><br>
+          Predict if it's normal or not<br>
+        Detect Different Finidings of X-ray <br>
+        Diagnose <b>Chest Diseases</b> with x-ray
+      </p>
+      <a class="btn" href="{% url 'machine' %}"> Put X-Ray </a>
+    </div>
+    <div class="">
+      <div class="circle p-3 im mx-5" style="background-color:#889C29; width:600px;">
+        <img class="circle" src="{% static 'images/x_ray.jpg' %}" class="">
+      </div>
+    </div>
+  </div >
+  <div class="wh">
+    <div class="pre">
+      <img class="pr" src="{% static 'images/image1.png' %}">
+    </div>
+    <div class="center">
+      <p class="ptx ">
+        Instead of Manual prescription<br>
+        which can cause alot of problems <br>
+        Due to unclear handwritting<br>
+        <b>Electronic Prescription </b><br>
+        Could be useful tool to avoid this problems
+        <br>
+        Enter Patient Data and Drug Details,<br>
+        to Print <b>Prescription</b>
+    </p>
+    <a class="btn b " href="{% url 'prescription' %}">Prescription</a>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+  <div class="po mt-5">
+    <ul class="tilesWrap ">
+      <li>
+        <h2>01</h2>
+        <h3>First </h3>
+        <p>
+          Diseases, symptoms, injuries, and more with photographs and illustrations. <br> <br>
+          <span> - Specially for professors</span>
+
+        </p>
+       </li>
+      <li>
+        <h2>02</h2>
+        <h3>second</h3>
+        <p>
+         Predict the disease by getting information about the symptoms from the user, whom we said once is the doctor, not the patient.
+        </p>
+        <a href="{% url 'machine' %}">
+          <button > To This Part</button></a>      </li>
+      <li>
+        <h2>03</h2>
+        <h3>About overlapping in the symptoms</h3>
+        <p>
+          Because of the overlapping in the symptoms of chest diseases, we decided to make a system that helps the doctors to correctly diagnose the diseases.
+        </p>
+        <a href="{% url 'form' %}">
+        <button > To This Part</button></a>
+      </li>
+      <li>
+        <h2>04</h2> <br>
+        <h3>prescription</h3>
+        <p>
+           We allow the doctor to write a prescription for the patient through our website Because of the complaints that patients face about not being able to read the manual prescription.
+        </p>
+        <a href="{% url 'prescription' %}">
+          <button > To This Part</button></a>      </li>
+    </ul>
+  </div>
+
+</body>
+{% endblock content %}

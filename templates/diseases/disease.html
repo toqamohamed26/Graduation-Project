@@ -1,0 +1,136 @@
+{% extends 'sec_nav.html' %} 
+{% block content %}
+{% load static %}
+<style>
+    body{
+        background-color: #e2e5e8;
+    }
+    .right{
+        margin: 20px;
+        margin-left:25%;
+        padding-right:50px;
+        padding:20px;
+        padding-right:20%;
+        text-align: left;
+        color: #272728;
+        width:75%;
+}
+.left{
+    float:left;
+    width:25%;
+    padding:20px;
+    height:100%;
+    margin:10px;
+    color:#487A7A;
+    top:0;
+    position: sticky;
+}
+.pa{
+    font-family:"Proxima Nova","Proxima Nova Fallback",sans-serif;
+    font-size:large;
+}
+.ulnav{
+    list-style:none;
+
+}
+.linav{
+    margin-bottom:0px;
+    padding:10px;
+    border-bottom:1px solid #487A7A;
+    border-radius:1px;
+    font-size:Large;
+}
+.linav:hover{
+    background-color:#487A7A;
+    color:white;
+}
+.anav{
+    color: inherit; 
+    text-decoration: inherit;
+    display:block;
+}
+.anav:active{
+    color: white; 
+    background-color:#487A7A;
+}
+.anav:hover{
+    color: white; 
+    background-color:#487A7A;
+}
+
+.linav:hover{
+    background-color:#487A7A;
+    color:white;
+}
+.DisName{
+    text-align:center;
+    font-family:"Proxima Nova","Proxima Nova Fallback",sans-serif;
+    color:white;
+    background-color:#487A7A;
+    padding:8px;
+    margin-bottom:0;
+    font-size:x-large;
+}
+.dis{
+    font-family:Verdana, Geneva, sans-serif;
+    margin-top:10px;
+    font-weight:bold;
+    border-bottom:1px solid #487A7A;
+    padding:10px;
+    color:#487A7A;
+    
+}
+</style>
+
+<div>
+<div class='left'>
+    <ul class="ulnav">
+        <li class="linav"><b><a href="#def" class="anav">Defination</a></b></li>
+        <li class="linav"><b><a href="#cause"  class="anav">Causes</a></b></li>
+        <li class="linav"><b><a href="#sym"  class="anav">Symptoms</a></b></li>
+        <li class="linav"><b><a href="#diag"  class="anav">Diagnosis</a></b></li>
+        <li class="linav"><b><a href="#treat"  class="anav">Treatment</a></b></li>
+    </ul>
+</div>
+<div class="right">
+    
+<div class="DisName">
+<h1 class="DisName"><b>{{disease.Name}}</b></h1>
+</div>
+<div>
+    <img src='{{disease.image.url}}' >
+</div>
+<h1 id="def" class="dis">Defination:</h1>
+<p class="pa">{{disease.Details|linebreaksbr}}</p>
+<h1 id="cause" class="dis">Causes:</h1>
+<p class="pa">{{disease.Causes|linebreaksbr}}</p>
+<ul>
+    {% for i in causes %}
+        <li><p class="pa"> {{i.cause}} </p></li>
+    {% endfor %}
+</ul>
+<h1 id="sym" class="dis">Symptoms:</h1>
+<p class="pa">{{disease.Symptoms|linebreaksbr}}</p>
+<ul>
+    {% for i in symptoms %}
+        <li><p class="pa"> {{i.symptom}}</p></li>
+    {% endfor %}
+</ul>
+<h1 id="diag" class="dis">Diagnosis:</h1>
+<p class="pa">{{disease.Diagnosis|linebreaksbr}}</p>
+<ul>
+    {% for i in diagnosis %}
+        <li><p class="pa"> {{i.diagnosis}}</p></li>
+    {% endfor %}
+</ul>
+<h1 id="treat" class="dis">Treatment:</h1>
+<p class="pa">{{disease.Treatment|linebreaksbr}}</p>
+<ul>
+    {% for i in treatments %}
+        <li><p class="pa"> {{i.treatment}}</p></li>
+    {% endfor %}
+</ul>
+</div>
+</div>
+
+{% endblock content %}

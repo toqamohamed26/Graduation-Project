@@ -1,0 +1,495 @@
+{% extends 'sec_nav.html' %}
+{% block content %}
+{% load static %}
+
+<head>
+</head>
+<style>
+    html,
+    body {
+        height: 100%;
+    }
+
+    body {
+        margin: 0;
+        background: linear-gradient(45deg, #e2e5e8, #e2e5e8);
+        font-family: sans-serif;
+        font-weight: 100;
+        background-color: #e2e5e8;
+        text-align: center;
+        color: #000;
+    }
+
+    .container {
+        position: absolute;
+        width: 90%;
+        top: 55%;
+        left: 700px;
+        transform: translate(-50%, -50%);
+    }
+
+    footer#footer {
+        margin-top: 110px;
+    }
+
+    table {
+        width: 800px;
+        border-collapse: collapse;
+        border-left: hidden;
+        border-right: hidden;
+        border-top: hidden;
+        overflow: hidden;
+    }
+
+    th,
+    td {
+        padding: 15px;
+        text-align: center;
+        border: 1px solid #ebebeb;
+        font-size: 20px;
+    }
+
+    th {
+        text-align: center;
+        font-size: 17px;
+        background-color: #70b1b1;
+        color: #fff;
+    }
+
+    tr {
+        color: #487A7A;
+    }
+
+    tr:hover {
+        background-color: #70b1b1;
+        color: #fff
+    }
+
+    @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .courses-container {
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        
+    }
+
+    .course {
+        background-color: #ffffff;
+        border-radius: 10px;
+        display: flex;
+        flex-wrap: nowrap;
+        max-width: 100%;
+        overflow: hidden;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .course:hover {
+        transform: scale(1.01);
+        box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .course h6 {
+        opacity: 0.6;
+        margin: 0;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .course h2 {
+        letter-spacing: 1px;
+        margin: 10px 0;
+        text-transform: uppercase;
+    }
+
+    .pa {
+        font-family: 'Times New Roman', Times, serif;
+        font-size: medium;
+        letter-spacing: 1px;
+        margin: 20px 0;
+        text-transform: uppercase;
+    }
+
+    .course-preview {
+        background-color: #487A7A;
+        color: #fff;
+        padding: 30px;
+        max-width: 250px;
+    }
+
+    .course-preview a {
+        color: #fff;
+        display: inline-block;
+        font-size: 12px;
+        opacity: 0.6;
+        margin-top: 30px;
+        text-decoration: none;
+    }
+
+    .course-info {
+        padding: 30px;
+        position: relative;
+        width: 100%;
+    }
+
+
+    .btn {
+        background-color: #487A7A;
+        color: #fff;
+        font-size: 16px;
+        border-radius: 10px;
+        padding: 12px 25px;
+        float: right;
+    }
+
+    .btn:hover {
+        background-color: #70b1b1;
+        color: white;
+    }
+
+    .tab {
+        cursor: pointer;
+        padding: 10px 20px;
+        margin: 0px;
+        background: white;
+        display: inline-block;
+        color: #487A7A;
+        border-radius: 3px 3px 0px 0px;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 20px;
+        position: relative;
+        right: 5%;
+    }
+
+    .panels {
+        min-height: 280px;
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        max-width: 100%;
+        overflow: hidden;
+        padding: 20px;
+    }
+
+    .panel {
+        display: none;
+        animation: fadein 2s;
+    }
+
+    @keyframes fadein {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    .panel-title {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+
+    .radio {
+        display: none;
+    }
+
+    #zero:checked~.panels #zero-panel,
+    #one:checked~.panels #one-panel,
+    #two:checked~.panels #two-panel,
+    #three:checked~.panels #three-panel,
+    #four:checked~.panels #four-panel {
+        display: block;
+    }
+
+    #three-tab {
+        margin-right: 0%;
+        padding-right: 0%
+    }
+
+    #zero:checked~.tabs #zero-tab,
+    #one:checked~.tabs #one-tab,
+    #two:checked~.tabs #two-tab,
+    #three:checked~.tabs #three-tab,
+    #four:checked~.tabs #four-tab {
+        background-color: #e2e5e8;
+        color: #487A7A;
+        border-top: 4px solid #487A7A;
+    }
+
+    @media screen and (max-width: 480px) {
+        .social-panel-container.visible {
+            transform: translateX(0px);
+        }
+
+        .floating-btn {
+            right: 10px;
+        }
+    }
+
+    .progress{
+        float:right;
+    }
+    .progress-bar{
+        background-color:#95A029;
+    }
+</style>
+
+<div class="courses-container mt-5">
+    <div class="course mt-5">
+        <div class="course-preview">
+            <h6> Result </h6> <br>
+            <a class="go" href="{% url 'form' %}"><i class="fa-solid fa-angles-left"></i> Go Back </a>
+        </div>
+        <div class="course-info">
+            <div class=" mb-0">
+                
+                <input class="radio" id="zero" name="group" type="radio" checked onclick="init()">
+                <input class="radio" id="one" name="group" type="radio" onclick="first()">
+                <input class="radio" id="two" name="group" type="radio" onclick="second()">
+                <input class="radio" id="three" name="group" type="radio" onclick="third()">
+                <input class="radio" id="four" name="group" type="radio" onclick="final()">
+
+                <div class="nav nav-tabs tabs">
+                    <label class="nav-item tab" id="zero-tab" for="zero" style=" margin-left:5%; margin-right:0%;">Predictions</label><span class="vr" style="color: #e2e5e8; opacity: 1;"></span>
+                    <label class="nav-item tab" id="one-tab" for="one" >
+                        Examinations </label>
+                    <label class="nav-item tab mx-0 px-0" id="two-tab" for="two">
+                        <span class="vr" style="color: #e2e5e8; opacity: 1;"></span>
+                        &nbsp;&nbsp;Lung functions test &nbsp;&nbsp;
+                        <span class="vr" style="color: #e2e5e8; opacity: 1;"></span>
+                    </label>
+                    <label class="nav-item tab" id="three-tab" for="three">
+                        &nbsp;&nbsp;Imaging results&nbsp;&nbsp;
+                        <span class="vr" style="color: #e2e5e8; opacity: 1;"></span>
+                    </label>
+                    <label class="nav-item tab" id="four-tab" for="four">Other features</label>
+                </div>
+                <div class="progress mt-4" style="height: 5px; width: 15%;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" id="bar" style="width: 0%;"></div>
+                </div>
+                
+                <div class="panels mt-0 py-0">
+                    <div class="panel" id="zero-panel">
+                        <table class="mt-4">
+                            <thead>
+                                <tr>
+                                    <th>Disease</th>
+                                    <th>Percent</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i,j in result %}
+                                <tr>
+                                    <td> {{i.Name|title}} </td>
+                                    <td>{{j}}%</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table> <br>
+                    </div>
+                    <div class="panel" id="one-panel">
+                        <table class="mt-4">
+                            <thead>
+                                <tr>
+                                    <th>Disease</th>
+                                    <th>Physical Examinations</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in x %}
+                                <tr>
+                                    <td> {{i.Name|title}} </td>
+                                    <td> {{i.physical|linebreaks}} </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table> <br>
+                    </div>
+                    <div class="panel" id="two-panel">
+                        <table class="mt-4">
+                            <thead>
+                                <tr>
+                                    <th>Disease</th>
+                                    <th>FEV<sub>1</sub></th>
+                                    <th> VC</th>
+                                    <th> FEV<sub>1</sub>/VC</th>
+                                    <th> TLC</th>
+                                    <th> RV</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in x %}
+                                <tr>
+                                    <td> {{i.Name|title}} </td>
+                                    <td> {{i.fev}}</td>
+                                    <td> {{i.vc}}</td>
+                                    <td> {{i.ratio}}</td>
+                                    <td> {{i.tlc}}</td>
+                                    <td> {{i.rv}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table> <br>
+                    </div>
+                    <div class="panel" id="three-panel">
+                        <table class="mt-4">
+                            <thead>
+                                <tr>
+                                    <th>Disease</th>
+                                    <th>X-ray</th>
+                                    <th>CT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in x %}
+                                <tr>
+                                    <td> {{i.Name|title}} </td>
+                                    <td> {{i.x_ray|linebreaks}}</td>
+                                    <td> {{i.ct|linebreaks}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table> <br>
+                    </div>
+                    <div class="panel" id="four-panel">
+                        <table class="mt-4">
+                            <thead>
+                                <tr>
+                                    <th>Disease</th>
+                                    <th>Other features</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in x %}
+                                <tr>
+                                    <td> {{i.Name|title}} </td>
+                                    <td> {{i.others|linebreaks}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table> <br>
+                    </div>
+                </div>
+            </div> <br>
+            <!--<button class="btn justify-content-right">Save</button>-->
+        </div>
+    </div>
+</div>
+
+<!-- <div class="courses-container mt-5">
+    <div class="course mt-5">
+        <div class="course-preview">
+            <h6> Result </h6> <br> 
+            <a class="go"  href="{% url 'form' %}">Go Back <i class="fas fa-chevron-right"></i></a>
+        </div>
+        <div class="course-info"> -->
+
+
+
+
+<!-- <div class="w3-container ">
+                <div class="w3-bar tabb ">
+                    <button class="w3-bar-item w3-button x " onclick="openCity( 'exam')">Examinations </button>
+                    <button class="w3-bar-item w3-button x  " onclick="openCity( 'Paris')">second tab</button>
+                    <button class="w3-bar-item w3-button x  " onclick="openCity( 'Tokyo')">Third tab</button>
+                </div>
+            
+                <div id="exam" class="w3-container city">
+                    <table class="mt-1">
+                        <thead>
+                            <tr>
+                                <th>Disease</th>
+                                <th>X-ray</th>
+                                <th>CT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in x %}
+                            <tr>
+                                <td> {{i.Name}} </td>
+                                <td> {{i.x_ray|linebreaks}}</td>
+                                <td> {{i.ct|linebreaks}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table> <br> <br>
+                 </div>
+            
+                <div id="Paris" class="w3-container city" style="display:none">
+                    <table class="mt-1">
+                        <thead>
+                            <tr>
+                                <th>Disease</th>
+                                <th>rv</th>
+                                <th>others</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in x %}
+                            <tr>
+                                <td> {{i.Name}} </td>
+                                <td> {{i.rv|linebreaks}}</td>
+                                <td> {{i.others|linebreaks}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table> <br> 
+                </div>
+            
+                <div id="Tokyo" class="w3-container city" style="display:none">
+                    <table class="mt-1">
+                        <thead>
+                            <tr>
+                                <th>Disease</th>
+                                <th>vc</th>
+                                <th>fev</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in x %}
+                            <tr>
+                                <td> {{i.Name}} </td>
+                                <td> {{i.vc|linebreaks}}</td>
+                                <td> {{i.fev|linebreaks}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div> </div> <br>   -->
+
+
+<!--<td>VC</td>
+<td>FEV<sub>1</sub></td>
+<td>FEV<sub>1</sub>/VC</td>
+<td> TLC</td>
+<td>RV</td>
+<td> {{i.vc}} </td>
+<td> {{i.fev}}</td>
+<td> {{i.ratio}}</td>
+<td> {{i.tlc}} </td>
+<td> {{i.rv}}</td>-->
+<script>
+    function init(){
+        document.getElementById("bar").setAttribute("style","width:0%;")
+    }
+    function first(){
+        document.getElementById("bar").setAttribute("style","width:25%;")
+    }
+    function second(){
+        document.getElementById("bar").setAttribute("style","width:50%;")
+    }
+    function third(){
+        document.getElementById("bar").setAttribute("style","width:75%;")
+    }
+    function final(){
+        document.getElementById("bar").setAttribute("style","width:100%;")
+    }
+</script>
+{% endblock content %}

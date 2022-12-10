@@ -1,0 +1,529 @@
+{% extends 'sec_nav.html' %}
+{% block content %}
+{% load static %}
+
+
+<style>
+    body {
+        background: linear-gradient(45deg, #e2e5e8, #e2e5e8);
+        font-family: 'Proxima Nova', 'Proxima Nova Fallback', sans-serif;
+        font-weight: 100;
+        background-color: #e2e5e8;
+        text-align: center;
+        color: #000;
+    }
+
+    .main {
+        width: 70%;
+        background-color: white;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+
+    .main:hover {
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 25px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .border {
+        border-radius: 10px;
+        border: 1px solid #e2e5e8;
+        padding: 5%;
+    }
+
+    .head,
+    .head2,
+    .head3 {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: bold;
+    }
+
+    input,
+    .form-control {
+        outline: 0;
+        border-width: 0 0 2px;
+        border-color: #00a8a891;
+        border-radius: 0%;
+    }
+
+    .was-validated .form-control:valid,
+    .was-validated .form-control:invalid {
+        box-shadow: none;
+        border-color: #00a8a891;
+        background-image: none;
+    }
+
+    .was-validated .form-control:invalid:focus,
+    .was-validated .form-control:valid:focus {
+        box-shadow: none;
+        background-image: none;
+    }
+
+    .form-control:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    label {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: rgb(107, 107, 107);
+        font-size: 18px;
+    }
+
+    .left {
+        width: 47%;
+        margin-right: 3%;
+        text-align: left;
+    }
+
+    .right {
+        width: 47%;
+        margin-left: 3%;
+        text-align: left;
+    }
+
+    .button {
+        border: none;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+
+    .button4 {
+        background-color: white;
+        color: #FF5722;
+        border-radius: 6px;
+
+    }
+
+    .button5 {
+        background-color: #FF5722;
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+        border-radius: 6px;
+    }
+
+    .button4:hover {
+        background-color: #f8eeee;
+    }
+
+    .part4 {
+        text-align: left;
+    }
+
+    .btn-danger {
+        background-color: rgb(255, 255, 255);
+        border: none;
+        color: rgb(26, 26, 26);
+        padding: 0px;
+        font-size: 20px;
+        text-align: center;
+        border: white;
+        float: right;
+    }
+
+    .btn-danger :hover {
+        color: #000;
+        border-radius: 3px;
+        background-color: #fff;
+    }
+
+    .butn:hover {
+        color: #000;
+        border-radius: 3px;
+        background-color: #fff;
+    }
+
+    .detail {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .in {
+        display: inline;
+    }
+
+    .left_modal {
+        width: 60%;
+        margin-right: 2%;
+    }
+
+    .right_modal {
+        width: 35%;
+        margin-left: 3%;
+    }
+
+    .btn:hover {
+        background-color: #fff;
+        border: 1px solid #95A029;
+        color: #95A029;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    .fin {
+        text-align: left;
+
+    }
+
+    .font {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .spann {
+        font-weight: normal;
+        color: rgb(56, 51, 51);
+    }
+
+    .bold {
+        color: rgb(81, 97, 131);
+    }
+
+    .mod_head,
+    .mod_foot {
+        background-color: rgb(81, 97, 131);
+        color: #fff;
+    }
+
+    .mod_head .bold,
+    .mod_foot .bold {
+        color: #fff;
+    }
+
+    @media print {
+        body {
+            visibility: hidden;
+        }
+
+        .fin {
+            visibility: visible;
+            overflow: visible !important;
+            position: relative;
+        }
+    }
+</style>
+<div id="drugs " class="main  ">
+    <div class="border">
+        <br>
+        <h1 class="head"> Generate Prescription </h1> <br>
+        <h3 class="head2">Who are you?</h3>
+        <form class="was-validated">
+            <div class="parts">
+                <div class="line form-floating mb-5 pt-1">
+                    <input type="text" class="fox form-control" id="DrName" name="DrName" placeholder=" " required
+                        autofocus />
+                    <label for="DrName"> DR Name * </label>
+                </div>
+                <div class="row mb-5">
+                    <div class="left form-floating pt-1">
+                        <input type="text" class="fox form-control" id="Address" name="Address" placeholder=" "
+                            required />
+                        <label for="Address">Address *</label>
+                    </div>
+                    <div class="right form-floating pt-1">
+                        <input type="text" class="fox form-control" id="Mobile" name="Mobile" placeholder=" " />
+                        <label for="Mobile">Mobile No.</label>
+                    </div>
+                </div>
+                <div class="line form-floating mb-5 pt-1">
+                    <input type="text" class="fox form-control" id="Qualifications" name="Qualifications"
+                        placeholder=" " required />
+                    <label for="Qualifications">Qualifications</label>
+                </div>
+                <h1 class="head3">Patient Details</h1>
+                <div class="row mb-5">
+                    <div class="left form-floating pt-1">
+                        <input type="text" class="fox form-control" id="PatientName" name="PatientName" placeholder=" "
+                            required />
+                        <label for="PatientName">Patient's Name *</label>
+                    </div>
+                    <div class="right form-floating pt-1">
+                        <input type="Number" class="fox form-control" id="Age" name="Age" placeholder=" " min="1"
+                            max="100" />
+                        <label for="Age">Age </label>
+                    </div>
+                </div>
+                <div class="row mb-5">
+
+                    <div class="left form-floating pt-1  ">
+                        <input list="data_dia" class="fox form-control " id="Diagnosis" >
+
+                        <datalist name="Diagnosis"  placeholder=" " required id="data_dia">
+                            <option value="" selected disabled></option>
+                            <option value="Pleurisy">Pleurisy</option>
+                            <option value="pleural effusion">pleural effusion</option>
+                            <option value="Pneumothorax">Pneumothorax</option>
+                            <option value="Empyema">Empyema</option>
+                            <option value="COPD">COPD</option>
+                            <option value="Bronchial asthma">Bronchial asthma</option>
+                            <option value="Bronchiectasis">Bronchiectasis</option>
+                             <option value="Cystic fibrosis">Cystic fibrosis</option>
+
+                            <option value="Lung Abscess">Lung Abscess</option>
+                            <option value="IPF">IPF</option>
+                            <option value="Pneumonia">Pneumonia</option>
+                            <option value="TB">TB</option> 
+                            <option value="Sarcoidosis">Sarcoidosis</option>
+
+                            </datalist>
+                            <label for="Diagnosis" style="font-size: 20px ; color: rgb(56, 56, 56);">Diagnosis </label>
+
+                     </div>
+                    <div class="right form-floating pt-1">
+                        <input type="text" class="fox form-control" id="Examinations" name="Examinations"
+                            placeholder=" " />
+                        <label for="Examinations">Examinations and investigation </label>
+                    </div>
+                </div>
+                <div class="line form-floating mb-5 pt-1">
+                    <textarea class="fox form-control" id="others" name="others" placeholder=" "></textarea>
+                    <label for="date">Other instructions</label>
+                </div>
+            </div>
+        </form>
+        <div class="container mb-5  part7 ">
+            <button class="button button4" data-bs-toggle="modal" data-bs-target="#myModal"> Add Drugs
+            </button>
+            <button class="button button5" data-bs-toggle="modal" data-bs-target="#myModal2"
+                onclick="myFunction()">Prescription</button>
+        </div>
+        <div id="part4">
+            <ul class="part4" id="co">
+            </ul>
+        </div>
+    </div>
+    <form name="theForm" onsubmit="return false">
+        <div class="modal fade p-3" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"> Add Drugs </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body nm ">
+                        <form class="p-3 was-validated">
+                            <div class="form-floating pt-1 mb-3 ">
+                                <input type="text" id="DrugN" name="DrugN" class="form-control" placeholder=" " required
+                                    autofocus />
+                                <label for="DrugN">Drug Name</label>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="left_modal form-floating pt-1">
+                                    <input type="number" id="Strength" name="Strength" class="form-control"
+                                        placeholder=" " />
+                                    <label for="Strength">Strength</label>
+                                </div>
+                                <div class="right_modal form-floating pt-1">
+                                    <select name="Strengthunit" id="Strengthunit" class="form-control " placeholder=" ">
+                                        <option value="" selected disabled></option>
+                                        <option value="mg">mg</option>
+                                        <option value="gm">gm</option>
+                                        <option value="ng">ng</option>
+                                        <option value="mcg">mcg</option>
+                                    </select>
+                                    <label for="Strengthunit">Unit</label>
+                                </div>
+                            </div>
+                            <div class="form-floating pt-1 mb-3 ">
+                                <select id="pre" name="pre" class="form-control" placeholder=" ">
+                                    <option value="" selected disabled>Preparation</option>
+                                    <option value="Tab.">Tab.</option>
+                                    <option value="Cap.">Cap.</option>
+                                    <option value="Inj.">Inj.</option>
+                                    <option value="Syr">Syr</option>
+                                </select>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="left_modal form-floating pt-1">
+                                    <input type="number" id="Dose" name="Dose" class="form-control " placeholder=" " />
+                                    <label for="Dose">Dose</label>
+                                </div>
+                                <div class="right_modal form-floating pt-1" id="drop">
+                                    <select name="doseunit" class="form-control " id="doseunit">
+                                        <option value="" selected disabled></option>
+                                        <option value="ml">ml</option>
+                                        <option value="Tea Spoon">Tea Spoon</option>
+                                        <option value="Table Spoon">Table Spoon</option>
+                                    </select>
+                                    <label for="Strengthunit">Unit</label>
+                                </div>
+                            </div>
+                            <div class="form-floating pt-1 mb-3 ">
+                                <input type="text" id="freq" name="freq" class="form-control" placeholder=" " />
+                                <label for="freq">Frequancy</label>
+                            </div>
+                            <div class="form-floating mb-5">
+                                <select name="route" class="form-control" id="route">
+                                    <option value="" disabled selected>Route</option>
+                                    <option value="oral">oral </option>
+                                    <option value="Ear Drops">Ear Drops</option>
+                                    <option value="Eye Drops">Eye Drops</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer ">
+                        <input class="btn " id="submit" onclick="Drugs()" value="OK" type="submit" disabled />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="modal" id="myModal2">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body fin p-5">
+                    <div class="mod_head p-3">
+                        <h4 class="modal-title left font bold">DR. <span id="doc_name"></span> </h4>
+                        <h4 class="modal-title font " id="doc_qual"> </h4>
+                    </div>
+                    <hr>
+                    <div class="p-3">
+                        <div class="row mb-2">
+                            <h4 class="modal-title left font bold">Patient's Name: <span class="spann"
+                                    id="pat_name"></span> </h4>
+                            <h4 class="modal-title right font bold">Age: <span class="spann" id="pat_age"></span> </h4>
+                        </div>
+                        <h4 class="font bold">Date: <span id="mod_date" class="spann"></span></h4>
+                    </div>
+                    <div class="innfoo border p-3">
+                        <div class="row ">
+                            <h4 class="dia left font bold">Diagnosis : <span id="diag" class="spann"></span></h4>
+                            <h4 class="dia right font bold">Investigation : <span id="inves" class="spann"></span></h4>
+                        </div>
+                        <hr class="mt-0">
+                        <h4> <span class="rx font bold">RX </span> </h4>
+                        <ul class="med">
+                        </ul>
+                        <h4 class="font bold">Other instructions: <span id="ins" class="spann"></span></h4>
+                    </div>
+                    <hr>
+                    <div class="mod_foot m-0 p-3">
+                        <h4 id="doc_add" class="center font"></h4>
+                        <h4 class="center font bold">Mobile No: <span id="doc_mob"> </span> </h4>
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <button class="btn btn9" onclick="window.print()">Print </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function myFunction() {
+        var doctor_name = document.getElementById('DrName').value;
+        var doctor_qual = document.getElementById("Qualifications").value;
+        var doctor_add = document.getElementById("Address").value;
+        var doctor_mob = document.getElementById("Mobile").value;
+        var patient_name = document.getElementById("PatientName").value;
+        var age = document.getElementById("Age").value;
+         var exam = document.getElementById("Examinations").value;
+        var Diagnosis=document.getElementById("Diagnosis").value ;
+        var others = document.getElementById("others").value;
+        var date = (new Date()).toISOString().slice(0, 10).split("-").reverse().join("/");
+
+        document.getElementById("doc_name").innerHTML = doctor_name;
+        document.getElementById("doc_qual").innerHTML = doctor_qual;
+        document.getElementById("doc_add").innerHTML = doctor_add;
+        document.getElementById("doc_mob").innerHTML = doctor_mob;
+        document.getElementById("pat_name").innerHTML = patient_name;
+        document.getElementById("pat_age").innerHTML = age;
+        document.getElementById("mod_date").innerHTML = date;
+        document.getElementById("diag").innerHTML = Diagnosis ;
+         document.getElementById("inves").innerHTML = exam;
+        document.getElementById("ins").innerHTML = others;
+
+        var count = document.getElementById("co").childElementCount;
+        console.log(count)
+        for (i = 0; i < count; i++) {
+            var drug_name = document.getElementsByClassName("drug")[i].firstElementChild.firstElementChild.innerHTML;
+            console.log(drug_name)
+            var drug_dose = document.getElementsByClassName("drug")[i].firstElementChild.nextElementSibling.innerHTML;
+            console.log(drug_dose)
+            var drug_details = `
+                <h3 class="font">
+                    ${drug_name}
+                    <h3 >${drug_dose}</h3>
+                </h3>`
+            var rx = document.createElement('li')
+            var pre_drugs = document.getElementsByClassName('med')[0]
+            rx.innerHTML = drug_details
+            pre_drugs.append(rx)
+        }
+ 
+    }
+
+
+    function Drugs() {
+        var name = document.getElementById("DrugN").value;
+        var strength = document.getElementById("Strength").value;
+        var strengthunit = document.getElementById("Strengthunit").value;
+        var pre = document.getElementById("pre").value;
+        var dose = document.getElementById("Dose").value;
+        var doseunit = document.getElementById("doseunit").value;
+        var freq = document.getElementById("freq").value;
+        var route = document.getElementById("route").value;
+        var drug = `
+        <h1 class="detail in">
+            <span>${pre} ${name} ${strength} ${strengthunit}</span>
+            <button class="btn-danger butn" type="button"><i class="fa fa-trash"></i></button>
+            <h2 class="detail">&emsp;&emsp;${dose} ${doseunit} ${route} ${freq}</h2>
+        </h1>`
+        var Drug = document.createElement('li')
+        Drug.classList.add('drug')
+        Drug.classList.add('mb-5')
+        var drugs = document.getElementsByClassName('part4')[0]
+        Drug.innerHTML = drug
+        drugs.append(Drug)
+        Drug.getElementsByClassName('btn-danger')[0].addEventListener('click', removeDrug)
+
+
+    }
+
+    function removeDrug(event) {
+        var buttonClicked = event.target
+        console.log(buttonClicked.parentElement.parentElement.parentElement)
+        buttonClicked.parentElement.parentElement.parentElement.remove()
+    }
+
+    document.onkeyup = (e) => {
+        if (e.target.tagName === 'INPUT') {
+            const canSubmit = [...document.forms.theForm.querySelectorAll('input[type="text"]')]
+                .every(i => {
+                    return i.value
+                })
+            document.forms.theForm.querySelector('input[type="submit"]').disabled = !canSubmit
+        }
+    }
+    const canSubmit = [...document.forms.theForm.querySelectorAll('input[type="text"]')]
+        .every(i => {
+            return i.value
+        })
+    document.forms.theForm.querySelector('input[type="submit"]').disabled = !canSubmit
+
+    let input = document.querySelector("input");
+    input.addEventListener("submit", (event) => {
+        event.preventDefault();
+    })
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+{% endblock content %}
